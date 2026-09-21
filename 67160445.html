@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>นายปุณณพัฒน์ มาตย์สาลี | 67160445</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+    :root {
+      --ink: #172226;
+      --muted: #657477;
+      --paper: #f3f0e8;
+      --cream: #fffdf8;
+      --coral: #ef765d;
+      --yellow: #f5c35b;
+      --line: rgba(23, 34, 38, 0.14);
+      --shadow: 0 24px 60px rgba(35, 45, 42, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 88% 12%, rgba(245, 195, 91, 0.32), transparent 24rem),
+        linear-gradient(135deg, #f6f2e9 0%, #ebe8dd 100%);
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      line-height: 1.8;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 30px clamp(20px, 5vw, 76px) 64px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 180ms ease, transform 180ms ease;
+    }
+
+    .back-link:hover { color: var(--coral); transform: translateX(-4px); }
+
+    .back-link span {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(255, 253, 248, 0.55);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .tag {
+      margin: 0;
+      color: var(--muted);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: clamp(58px, 10vw, 120px) auto 0;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+      gap: clamp(40px, 8vw, 120px);
+      align-items: end;
+      padding-bottom: 72px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 24px;
+      color: var(--coral);
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 34px;
+      height: 3px;
+      background: var(--coral);
+      content: '';
+    }
+
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      font-family: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+      font-size: 54px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.03;
+    }
+
+    h1 .name { display: inline; }
+    h1 .surname { color: var(--coral); }
+
+    .student-card {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+      border: 1px solid var(--ink);
+      background: var(--cream);
+      box-shadow: var(--shadow);
+    }
+
+    .student-card::after {
+      position: absolute;
+      right: -38px;
+      bottom: -55px;
+      width: 150px;
+      height: 150px;
+      border: 28px solid var(--yellow);
+      border-radius: 50%;
+      content: '';
+      opacity: 0.9;
+    }
+
+    .card-label {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .student-id {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.6rem, 5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 0 0 58px;
+      background: var(--line);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 0.3fr 1fr;
+      gap: clamp(32px, 8vw, 130px);
+      max-width: 1000px;
+    }
+
+    .content h2 {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .copy { max-width: 720px; }
+
+    .copy p {
+      margin: 0 0 26px;
+      color: #3d4b4d;
+      font-size: 1.08rem;
+    }
+
+    .copy p:first-child { color: var(--ink); font-size: 1.22rem; font-weight: 500; }
+
+    footer {
+      max-width: 1180px;
+      margin: 110px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 720px) {
+      .page { padding-top: 20px; }
+      .tag { display: none; }
+      main { margin-top: 68px; }
+      .intro { grid-template-columns: 1fr; gap: 42px; padding-bottom: 48px; }
+      .student-card { padding: 26px; }
+      .content { grid-template-columns: 1fr; gap: 18px; }
+      footer { margin-top: 72px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="back-link" href="/" aria-label="ย้อนกลับไปหน้าหลัก">
+        <span aria-hidden="true">&#8592;</span>
+        <b>ย้อนกลับ</b>
+      </a>
+      <p class="tag">Student profile / 2024</p>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="profile-title">
+        <div>
+          <p class="eyebrow">Member profile</p>
+          <h1 id="profile-title">
+            <span class="name">นายปุณณพัฒน์</span>
+            <span class="surname">มาตย์สาลี</span>
+          </h1>
+        </div>
+
+        <aside class="student-card" aria-label="ข้อมูลรหัสนิสิต">
+          <p class="card-label">รหัสนิสิต</p>
+          <p class="student-id">67160445</p>
+        </aside>
+      </section>
+
+      <div class="divider"></div>
+
+      <section class="content" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <div class="copy">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae justo at erat bibendum tincidunt. Donec at nunc sed sapien posuere feugiat. Suspendisse potenti. Mauris consequat, nulla vitae luctus faucibus, justo lectus tincidunt ipsum, at fermentum libero enim quis lacus.</p>
+          <p>Praesent euismod, arcu non tempor tincidunt, sapien purus sollicitudin mi, vitae consequat neque erat sed arcu. Curabitur viverra, lectus non facilisis ullamcorper, justo sem porttitor libero, non vulputate lectus magna et neque. Aenean laoreet ex a ex posuere, vitae convallis arcu dignissim.</p>
+          <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed finibus nisl sit amet massa consequat, a condimentum tortor placerat. Nam hendrerit, urna at faucibus suscipit, ligula erat malesuada sem, sed commodo lacus massa vel metus.</p>
+          <p>Fusce tincidunt lectus ut nisl tristique, in feugiat quam feugiat. Aliquam erat volutpat. Proin at felis vel magna commodo accumsan. Donec dictum, risus nec posuere feugiat, tortor augue aliquet nulla, a consequat lectus arcu quis dolor. Quisque malesuada sapien vitae erat mattis, sed tempus magna bibendum.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>67160445 · Personal page</footer>
+  </div>
+</body>
+</html>
