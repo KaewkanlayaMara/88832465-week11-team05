@@ -132,6 +132,11 @@
       width: 64px; height: 64px; border-radius: 50%;
       background: var(--panel-2); border: 2px solid var(--text);
       display: grid; place-items: center; font-size: 1.9rem;
+      overflow: hidden;   /* ตัดรูปให้เป็นวงกลม */
+    }
+    /* รูปถ่ายสมาชิก: ถ้าไฟล์รูปไม่มี JS จะซ่อน img แล้วโชว์ emoji แทน */
+    .avatar .face img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
     .member .name { font-size: 0.92rem; font-weight: 500; line-height: 1.35; }
     .member .sid  { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
@@ -253,7 +258,7 @@
 
           <!-- ===== สมาชิก 1: นายกฤษติกร รอดโสภา (67160118) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160118.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นายกฤษติกร รอดโสภา</div>
             <div class="sid">67160118</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -318,7 +323,7 @@
 
           <!-- ===== สมาชิก 2: นายธีรภัทร งามสุข (67160442) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160442.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นายธีรภัทร งามสุข</div>
             <div class="sid">67160442</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -358,7 +363,7 @@
 
           <!-- ===== สมาชิก 3: นายญาณากร นิดร (67160112) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160112.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นายญาณากร นิดร</div>
             <div class="sid">67160112</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -384,7 +389,7 @@
 
           <!-- ===== สมาชิก 4: นางสาวณัฐรฎา ปะสิ่งชอบ (67160286) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160286.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นางสาวณัฐรฎา ปะสิ่งชอบ</div>
             <div class="sid">67160286</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -410,7 +415,7 @@
 
           <!-- ===== สมาชิก 5: นางสาวแก้วกัลญา มารศรี (67160122) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160122.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นางสาวแก้วกัลญา มารศรี</div>
             <div class="sid">67160122</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -436,7 +441,7 @@
 
           <!-- ===== สมาชิก 6: นายพัสกร ไกรพงษ์ (67160142) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160142.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นายพัสกร ไกรพงษ์</div>
             <div class="sid">67160142</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -462,7 +467,7 @@
 
           <!-- ===== สมาชิก 7: นางสาวศวิตา กิ่งพุทธพงษ์ (67160453) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160453.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นางสาวศวิตา กิ่งพุทธพงษ์</div>
             <div class="sid">67160453</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -488,7 +493,7 @@
 
           <!-- ===== สมาชิก 8: นายธัชณัฏฐ์กร วงศ์เดชสกุล (67160288) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160288.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นายธัชณัฏฐ์กร วงศ์เดชสกุล</div>
             <div class="sid">67160288</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -514,7 +519,7 @@
 
           <!-- ===== สมาชิก 9: นายวรากร รุ่งสีทอง (67160450) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160450.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นายวรากร รุ่งสีทอง</div>
             <div class="sid">67160450</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -540,7 +545,7 @@
 
           <!-- ===== สมาชิก 10: นายปุณณพัฒน์ มาตย์สาลี (67160445) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160445.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นายปุณณพัฒน์ มาตย์สาลี</div>
             <div class="sid">67160445</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -573,7 +578,7 @@
 
           <!-- ===== สมาชิก 11: นางสาวฐิตาภา พูนสง่า (67160145) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160145.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นางสาวฐิตาภา พูนสง่า</div>
             <div class="sid">67160145</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -606,7 +611,7 @@
 
           <!-- ===== สมาชิก 12: นายพีรวิชญ์ ชูแสง (67160448) ===== -->
           <button class="member" type="button">
-            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="avatar"><div class="halo"></div><div class="face"><img src="images/67160448.jpg" alt=""><span class="fallback">&#128522;</span></div></div>
             <div class="name">นายพีรวิชญ์ ชูแสง</div>
             <div class="sid">67160448</div>
             <div class="hint">ดู Feature &#9656;</div>
@@ -669,6 +674,13 @@
         overlay.setAttribute('aria-hidden', 'false');
         closeBtn.focus();
       });
+    });
+
+    // ถ้าไฟล์รูปไม่มี หรือโหลดไม่ได้ → ซ่อนรูป แล้วแสดง emoji แทน
+    document.querySelectorAll('.avatar .face img').forEach(img => {
+      const showEmoji = () => { img.style.display = 'none'; };
+      img.addEventListener('error', showEmoji);
+      if (img.complete && img.naturalWidth === 0) showEmoji();
     });
 
     // ปิด popup: กดปุ่ม ✕, กดพื้นที่มืดด้านนอก หรือกด Esc
