@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ทีม 5 · 67 Darkness · ระบบ ThiangThong</title>
+
+  <!-- ฟอนต์ภาษาไทย (ถ้าโหลดไม่ได้จะใช้ฟอนต์ระบบแทน) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       ธีมสีของทีม (แก้ที่นี่ที่เดียว ทุกการ์ดจะเปลี่ยนตาม)
+       ========================================================= */
+    :root {
+      --bg: #0d0d14;
+      --panel: #16161f;
+      --panel-2: #1e1e2a;
+      --line: #2c2c3c;
+      --text: #ececf3;
+      --muted: #9a9ab0;
+      --accent: #a78bfa;      /* สีหลัก */
+      --accent-2: #f5c451;    /* สีรอง */
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Sarabun", "Prompt", system-ui, sans-serif;
+      background: var(--bg);
+      background-image: radial-gradient(circle at 15% 0%, #2a1f4a 0%, transparent 45%),
+                        radial-gradient(circle at 90% 100%, #3a2a10 0%, transparent 40%);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, .name { font-family: "Prompt", sans-serif; }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 32px 16px 64px; }
+
+    /* ---------- หัวเว็บ ---------- */
+    .back {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); text-decoration: none; font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+    .back:hover { color: var(--accent); }
+
+    header { text-align: center; margin-bottom: 40px; }
+    header .tag {
+      display: inline-block; padding: 4px 14px; border-radius: 999px;
+      border: 1px solid var(--accent); color: var(--accent);
+      font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 12px;
+    }
+    header h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; }
+    header h1 span { color: var(--accent-2); }
+    header p { color: var(--muted); margin-top: 6px; }
+
+    /* ---------- เลย์เอาต์หลัก: ซ้าย = รายละเอียดระบบ, ขวา = สมาชิก ---------- */
+    .layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+    .box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .box h2 {
+      font-size: 1.15rem; text-align: center;
+      padding-bottom: 12px; margin-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* รายละเอียดระบบ */
+    .spec dt { color: var(--accent); font-weight: 500; font-size: 0.9rem; margin-top: 14px; }
+    .spec dt:first-child { margin-top: 0; }
+    .spec dd { margin-top: 4px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      font-size: 0.8rem; padding: 3px 10px; border-radius: 999px;
+      background: var(--panel-2); border: 1px solid var(--line);
+    }
+
+    /* ---------- กริดสมาชิก ---------- */
+    .members {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 1100px) { .members { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 700px)  { .members { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 460px)  { .members { grid-template-columns: repeat(2, 1fr); } }
+
+    /* การ์ดสมาชิก 1 ใบ — ทุกคนใช้คลาสเดียวกันเพื่อให้สไตล์เหมือนกันทั้งทีม */
+    .member {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px 10px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+      font: inherit; color: inherit; width: 100%;
+    }
+    .member:hover, .member:focus-visible {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(167, 139, 250, .18);
+      outline: none;
+    }
+    .member.empty { cursor: default; opacity: .45; }
+    .member.empty:hover { transform: none; border-color: var(--line); box-shadow: none; }
+
+    /* อวาตาร์หน้ายิ้ม + วงแหวน (ตามแบบในโจทย์) */
+    .avatar { position: relative; width: 64px; height: 72px; margin: 0 auto 10px; }
+    .avatar .halo {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 44px; height: 10px; border: 2px solid var(--accent-2); border-radius: 50%;
+    }
+    .avatar .face {
+      position: absolute; bottom: 0; left: 0;
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--panel-2); border: 2px solid var(--text);
+      display: grid; place-items: center; font-size: 1.9rem;
+    }
+    .member .name { font-size: 0.92rem; font-weight: 500; line-height: 1.35; }
+    .member .sid  { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .member .hint { font-size: 0.72rem; color: var(--accent); margin-top: 6px; }
+
+    /* ข้อมูลรายละเอียดของแต่ละคนซ่อนไว้ในการ์ด แล้ว JS จะดึงไปแสดงใน popup */
+    .member-detail { display: none; }
+
+    /* ---------- Popup รายละเอียด Feature ---------- */
+    .overlay {
+      position: fixed; inset: 0; z-index: 50;
+      background: rgba(5, 5, 10, .75); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center;
+      padding: 16px;
+    }
+    .overlay.open { display: flex; }
+
+    .modal {
+      background: var(--panel);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      width: 100%; max-width: 720px; max-height: 88vh; overflow-y: auto;
+      padding: 28px; position: relative;
+      animation: pop .22s ease-out;
+    }
+    @keyframes pop { from { transform: scale(.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .close {
+      position: absolute; top: 14px; right: 14px;
+      background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+      width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 1rem;
+    }
+    .close:hover { border-color: var(--accent); color: var(--accent); }
+
+    .modal .profile { padding-right: 40px; margin-bottom: 20px; }
+    .modal .profile h3 { font-size: 1.35rem; }
+    .modal .profile p  { color: var(--muted); font-size: 0.92rem; }
+    .modal .profile a  { color: var(--accent-2); }
+
+    .modal h4 {
+      font-family: "Prompt", sans-serif; font-size: 1rem; color: var(--accent);
+      margin: 18px 0 10px;
+    }
+
+    .feature {
+      background: var(--panel-2); border: 1px solid var(--line);
+      border-left: 3px solid var(--accent-2);
+      border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+    }
+    .feature h5 { font-family: "Prompt", sans-serif; font-size: 0.98rem; font-weight: 600; }
+    .feature .branch {
+      display: inline-block; font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.75rem; color: var(--accent); background: rgba(167,139,250,.1);
+      padding: 1px 8px; border-radius: 6px; margin: 4px 0 6px;
+    }
+    .feature ul { padding-left: 20px; font-size: 0.9rem; }
+    .feature li { margin: 2px 0; }
+    .feature code {
+      font-family: ui-monospace, Consolas, monospace; font-size: 0.82rem;
+      background: #0d0d14; padding: 1px 5px; border-radius: 4px;
+    }
+
+    footer { text-align: center; color: var(--muted); font-size: 0.82rem; margin-top: 48px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- ลิงก์กลับหน้ารวมทุกทีม (index.html ใน branch main) -->
+    <a class="back" href="index.html">← กลับหน้ารวมทีม</a>
+
+    <header>
+      <div class="tag">TEAM 5 · 67 DARKNESS</div>
+      <h1>ทีม 5 ระบบ <span>ThiangThong</span></h1>
+      <p>แพลตฟอร์มบริการด้านกฎหมายออนไลน์</p>
+    </header>
+
+    <div class="layout">
+
+      <!-- =====================================================
+           ส่วนซ้าย: รายละเอียดของระบบ
+           ===================================================== -->
+      <section class="box">
+        <h2>รายละเอียดของระบบ</h2>
+        <dl class="spec">
+          <dt>วัตถุประสงค์</dt>
+          <dd>เป็นแพลตฟอร์มที่เชื่อมผู้ใช้งานทั่วไปกับทนายความ ให้ขอคำปรึกษา จัดการเอกสาร และใช้บริการด้านกฎหมายได้ง่ายในที่เดียว</dd>
+
+          <dt>เครื่องมือที่ใช้</dt>
+          <dd class="chips">
+            <span class="chip">Git</span><span class="chip">Postman</span>
+            <span class="chip">SonarQube</span><span class="chip">JaCoCo</span>
+            <span class="chip">PlantUML</span><span class="chip">dbdiagram.io</span>
+          </dd>
+
+          <dt>เทคโนโลยี</dt>
+          <dd class="chips">
+            <span class="chip">Java</span><span class="chip">PostgreSQL</span>
+            <span class="chip">Flyway</span><span class="chip">JWT</span>
+            <span class="chip">Gradle</span>
+          </dd>
+
+          <dt>เฟรมเวิร์ก</dt>
+          <dd class="chips">
+            <span class="chip">Spring Boot</span><span class="chip">Spring Security</span>
+            <span class="chip">Next.js</span>
+          </dd>
+        </dl>
+      </section>
+
+      <!-- =====================================================
+           ส่วนขวา: สมาชิก
+           แต่ละคนแก้ "เฉพาะบล็อกการ์ดของตัวเอง" เท่านั้น
+           เพื่อลด conflict ตอน merge และห้ามแก้/ลบการ์ดของเพื่อน
+           ===================================================== -->
+      <section class="box">
+        <h2>สมาชิก</h2>
+        <div class="members">
+
+          <!-- ===== สมาชิก 1: นายกฤษติกร รอดโสภา (67160118) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นายกฤษติกร รอดโสภา</div>
+            <div class="sid">67160118</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นายกฤษติกร รอดโสภา</h3>
+                <p>รหัสนิสิต 67160118 · <a href="mailto:67160118@go.buu.ac.th">67160118@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: DE – Development Engineer (วิศวกรด้านการพัฒนา)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>ระบบยืนยันตัวตนด้วย JWT (Login / Logout)</h5>
+                <span class="branch">feature/auth</span>
+                <ul>
+                  <li>API <code>POST /auth/login</code> เข้าสู่ระบบและออก Access / Refresh Token</li>
+                  <li>API <code>POST /auth/refresh</code> ขอ Token ใหม่เมื่อหมดอายุ</li>
+                  <li>API <code>POST /auth/logout</code> ออกจากระบบ</li>
+                  <li>API <code>GET /auth/me</code> ดึงข้อมูลผู้ใช้ที่ล็อกอินอยู่</li>
+                  <li>JWT Filter ตรวจสอบ Token ทุก request แบบ stateless (HS256)</li>
+                </ul>
+              </div>
+
+              <div class="feature">
+                <h5>จำกัดจำนวนครั้งการล็อกอิน (Rate Limiter)</h5>
+                <span class="branch">feature/auth</span>
+                <ul>
+                  <li>ป้องกันการเดารหัสผ่าน (brute-force) โดยจำกัดจำนวนครั้งที่ล็อกอินผิด</li>
+                </ul>
+              </div>
+
+              <div class="feature">
+                <h5>ลืมรหัสผ่าน / ตั้งรหัสผ่านใหม่</h5>
+                <span class="branch">feature/forgot-reset-password</span>
+                <ul>
+                  <li>API ขอรีเซ็ตรหัสผ่าน</li>
+                  <li>นโยบายความปลอดภัยของรหัสผ่าน (Password Policy) และการเข้ารหัสแบบ hash</li>
+                  <li>API ตั้งรหัสผ่านใหม่</li>
+                </ul>
+              </div>
+
+              <div class="feature">
+                <h5>ออกแบบระบบด้วย UML</h5>
+                <ul>
+                  <li>Sequence Diagram ของ Module K (Admin Content, Lawyer &amp; Revenue)</li>
+                  <li>ร่วมออกแบบ Module C (Document Management)</li>
+                </ul>
+              </div>
+
+              <div class="feature">
+                <h5>ทดสอบระบบ</h5>
+                <ul>
+                  <li>เขียนและรัน Test Case ของ UC-2.0 (Login / Logout)</li>
+                  <li>ตรวจคุณภาพโค้ดด้วย SonarQube และวัด coverage ด้วย JaCoCo</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 1 ===== -->
+
+          <!-- ===== สมาชิก 2: นายธีรภัทร งามสุข (67160442) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นายธีรภัทร งามสุข</div>
+            <div class="sid">67160442</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นายธีรภัทร งามสุข</h3>
+                <p>รหัสนิสิต 67160442 · <a href="mailto:67160442@go.buu.ac.th">67160442@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: TL – Team Leader (หัวหน้าทีม)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>ออกแบบ UI หน้ารายชื่อนักกฎหมาย</h5>
+                <ul>
+                  <li>ออกแบบหน้าจอแสดงรายชื่อนักกฎหมายในระบบ</li>
+                </ul>
+              </div>
+
+              <div class="feature">
+                <h5>Business Analyst (BA)</h5>
+                <ul>
+                  <li>วิเคราะห์ความต้องการของระบบและจัดทำเอกสารประกอบ</li>
+                </ul>
+              </div>
+
+              <div class="feature">
+                <h5>พัฒนา Navbar</h5>
+                <ul>
+                  <li>เขียนโค้ดแถบเมนูนำทาง (Navbar) ของเว็บไซต์</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 2 ===== -->
+
+          <!-- ===== สมาชิก 3: นายญาณากร นิดร (67160112) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นายญาณากร นิดร</div>
+            <div class="sid">67160112</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นายญาณากร นิดร</h3>
+                <p>รหัสนิสิต 67160112 · <a href="mailto:67160112@go.buu.ac.th">67160112@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: DM – Development Manager (ผู้จัดการด้านการพัฒนา)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>API ปิดบัญชีผู้ใช้ (Account Close)</h5>
+                <ul>
+                  <li>พัฒนา API สำหรับปิดบัญชีผู้ใช้งานในระบบ</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 3 ===== -->
+
+          <!-- ===== สมาชิก 4: นางสาวณัฐรฎา ปะสิ่งชอบ (67160286) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นางสาวณัฐรฎา ปะสิ่งชอบ</div>
+            <div class="sid">67160286</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นางสาวณัฐรฎา ปะสิ่งชอบ</h3>
+                <p>รหัสนิสิต 67160286 · <a href="mailto:67160286@go.buu.ac.th">67160286@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: QE – Quality Engineer (วิศวกรด้านคุณภาพ)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>API Profile Setting</h5>
+                <ul>
+                  <li>พัฒนา API สำหรับจัดการการตั้งค่าโปรไฟล์ผู้ใช้</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 4 ===== -->
+
+          <!-- ===== สมาชิก 5: นางสาวแก้วกัลญา มารศรี (67160122) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นางสาวแก้วกัลญา มารศรี</div>
+            <div class="sid">67160122</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นางสาวแก้วกัลญา มารศรี</h3>
+                <p>รหัสนิสิต 67160122 · <a href="mailto:67160122@go.buu.ac.th">67160122@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: SM – Support Manager (ผู้จัดการด้านสนับสนุน)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>หน้า Profile Setting</h5>
+                <ul>
+                  <li>พัฒนาหน้าจอตั้งค่าโปรไฟล์ผู้ใช้งาน</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 5 ===== -->
+
+          <!-- ===== สมาชิก 6: นายพัสกร ไกรพงษ์ (67160142) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นายพัสกร ไกรพงษ์</div>
+            <div class="sid">67160142</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นายพัสกร ไกรพงษ์</h3>
+                <p>รหัสนิสิต 67160142 · <a href="mailto:67160142@go.buu.ac.th">67160142@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: QM – Quality Manager (ผู้จัดการด้านคุณภาพ)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>ออกแบบ UX/UI หน้าจอชำระเงิน</h5>
+                <ul>
+                  <li>ออกแบบหน้าจอสำหรับการชำระเงินในระบบ</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 6 ===== -->
+
+          <!-- ===== สมาชิก 7: นางสาวศวิตา กิ่งพุทธพงษ์ (67160453) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นางสาวศวิตา กิ่งพุทธพงษ์</div>
+            <div class="sid">67160453</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นางสาวศวิตา กิ่งพุทธพงษ์</h3>
+                <p>รหัสนิสิต 67160453 · <a href="mailto:67160453@go.buu.ac.th">67160453@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: PM – Plan Manager (ผู้จัดการด้านแผนงาน)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>หน้า Package Setting</h5>
+                <ul>
+                  <li>พัฒนาหน้าจอตั้งค่าแพ็กเกจการใช้งาน</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 7 ===== -->
+
+          <!-- ===== สมาชิก 8: นายธัชณัฏฐ์กร วงศ์เดชสกุล (67160288) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นายธัชณัฏฐ์กร วงศ์เดชสกุล</div>
+            <div class="sid">67160288</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นายธัชณัฏฐ์กร วงศ์เดชสกุล</h3>
+                <p>รหัสนิสิต 67160288 · <a href="mailto:67160288@go.buu.ac.th">67160288@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: PE – Plan Engineer (วิศวกรด้านแผนงาน)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>ออกแบบ Landing Page (Figma)</h5>
+                <ul>
+                  <li>ออกแบบหน้าแรกของเว็บไซต์ด้วย Figma</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 8 ===== -->
+
+          <!-- ===== สมาชิก 9: นายวรากร รุ่งสีทอง (67160450) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นายวรากร รุ่งสีทอง</div>
+            <div class="sid">67160450</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นายวรากร รุ่งสีทอง</h3>
+                <p>รหัสนิสิต 67160450 · <a href="mailto:67160450@go.buu.ac.th">67160450@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: SE – Support Engineer (วิศวกรด้านสนับสนุน)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>หน้า Setting Documents</h5>
+                <ul>
+                  <li>พัฒนาหน้าจอตั้งค่าเอกสารในระบบ</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 9 ===== -->
+
+          <!-- ===== สมาชิก 10: นายปุณณพัฒน์ มาตย์สาลี (67160445) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นายปุณณพัฒน์ มาตย์สาลี</div>
+            <div class="sid">67160445</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นายปุณณพัฒน์ มาตย์สาลี</h3>
+                <p>รหัสนิสิต 67160445 · <a href="mailto:67160445@go.buu.ac.th">67160445@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: DE – Development Engineer (วิศวกรด้านการพัฒนา)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>API สมัครสมาชิก (Register)</h5>
+                <ul>
+                  <li>พัฒนา API สำหรับการสมัครสมาชิกผู้ใช้งาน</li>
+                </ul>
+              </div>
+
+              <div class="feature">
+                <h5>API สร้างบริษัท (Create Company)</h5>
+                <ul>
+                  <li>พัฒนา API สำหรับการสร้างข้อมูลบริษัท</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 10 ===== -->
+
+          <!-- ===== สมาชิก 11: นางสาวฐิตาภา พูนสง่า (67160145) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นางสาวฐิตาภา พูนสง่า</div>
+            <div class="sid">67160145</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นางสาวฐิตาภา พูนสง่า</h3>
+                <p>รหัสนิสิต 67160145 · <a href="mailto:67160145@go.buu.ac.th">67160145@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: SE – Support Engineer (วิศวกรด้านสนับสนุน)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>ออกแบบ UI หน้ารับงานตรวจเอกสาร (Figma)</h5>
+                <ul>
+                  <li>ออกแบบหน้าจอสำหรับการรับงานตรวจเอกสาร</li>
+                </ul>
+              </div>
+
+              <div class="feature">
+                <h5>ออกแบบ UI หน้าโปรไฟล์นักกฎหมาย (Figma)</h5>
+                <ul>
+                  <li>ออกแบบหน้าจอโปรไฟล์ของนักกฎหมาย</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 11 ===== -->
+
+          <!-- ===== สมาชิก 12: นายพีรวิชญ์ ชูแสง (67160448) ===== -->
+          <button class="member" type="button">
+            <div class="avatar"><div class="halo"></div><div class="face">&#128522;</div></div>
+            <div class="name">นายพีรวิชญ์ ชูแสง</div>
+            <div class="sid">67160448</div>
+            <div class="hint">ดู Feature &#9656;</div>
+
+            <div class="member-detail">
+              <div class="profile">
+                <h3>นายพีรวิชญ์ ชูแสง</h3>
+                <p>รหัสนิสิต 67160448 · <a href="mailto:67160448@go.buu.ac.th">67160448@go.buu.ac.th</a></p>
+                <p>ตำแหน่งในทีม: PE – Plan Engineer (วิศวกรด้านแผนงาน)</p>
+              </div>
+
+              <h4>Feature ที่รับผิดชอบในระบบ ThiangThong</h4>
+
+              <div class="feature">
+                <h5>API Organization Setting</h5>
+                <ul>
+                  <li>พัฒนา API สำหรับการตั้งค่าข้อมูลองค์กร</li>
+                </ul>
+              </div>
+
+              <div class="feature">
+                <h5>API เปลี่ยนรหัสผ่าน (Change Password)</h5>
+                <ul>
+                  <li>พัฒนา API สำหรับการเปลี่ยนรหัสผ่านของผู้ใช้</li>
+                </ul>
+              </div>
+            </div>
+          </button>
+          <!-- ===== จบสมาชิก 12 ===== -->
+        </div>
+      </section>
+    </div>
+
+    <footer>รายวิชา 88832465 การใช้งาน Git · ทีม 5 · 67 Darkness</footer>
+  </div>
+
+  <!-- Popup กลาง (ใช้ร่วมกันทุกคน ไม่ต้องแก้) -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="close" id="closeBtn" type="button" aria-label="ปิด">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================================
+    // เปิด popup: เมื่อกดการ์ดสมาชิก จะคัดลอก .member-detail
+    // ของการ์ดนั้นมาแสดงใน popup (ไม่ต้องเขียน JS เพิ่มต่อคน)
+    // ==========================================================
+    const overlay   = document.getElementById('overlay');
+    const modalBody = document.getElementById('modalBody');
+    const closeBtn  = document.getElementById('closeBtn');
+
+    document.querySelectorAll('.member:not(.empty)').forEach(card => {
+      card.addEventListener('click', () => {
+        const detail = card.querySelector('.member-detail');
+        if (!detail) return;                 // การ์ดที่ยังไม่มีรายละเอียด ไม่ต้องเปิด
+        modalBody.innerHTML = detail.innerHTML;
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        closeBtn.focus();
+      });
+    });
+
+    // ปิด popup: กดปุ่ม ✕, กดพื้นที่มืดด้านนอก หรือกด Esc
+    function closeModal() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+</html>
