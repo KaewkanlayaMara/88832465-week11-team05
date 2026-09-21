@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="หน้าส่วนตัวของแก้วกัลญา มารศรี สมาชิกทีม 05" />
+    <title>แก้วกัลญา มารศรี | Team 05</title>
+    <style>
+      :root {
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        color: #271b38;
+        background: #fff8f1;
+      }
+      * { box-sizing: border-box; }
+      body { min-height: 100vh; margin: 0; background: radial-gradient(circle at 10% 10%, #ffe2d1 0, transparent 34%), radial-gradient(circle at 90% 20%, #e9ddff 0, transparent 32%), #fff8f1; }
+      main { width: min(100% - 32px, 900px); margin: 0 auto; padding: clamp(32px, 7vw, 80px) 0; }
+      .card { overflow: hidden; border: 2px solid #36234b; border-radius: 28px; background: #fffefa; box-shadow: 10px 12px 0 #36234b; }
+      .hero { display: grid; grid-template-columns: minmax(0, 1fr) 220px; align-items: center; gap: 32px; padding: clamp(28px, 6vw, 56px); background: linear-gradient(135deg, #fff4e6, #f8edff); }
+      .eyebrow { display: inline-block; margin: 0 0 18px; border: 2px solid #36234b; border-radius: 999px; padding: 7px 14px; background: #ffe385; font-size: 14px; font-weight: 800; }
+      h1 { margin: 0; font-size: clamp(36px, 6vw, 64px); line-height: 1.15; }
+      .lead { max-width: 480px; margin: 18px 0 0; font-size: clamp(17px, 2.6vw, 21px); line-height: 1.65; }
+      .photo { display: grid; place-items: center; aspect-ratio: 1; border: 3px solid #36234b; border-radius: 28px; background: #e7d5ff; box-shadow: 8px 8px 0 #f6ae93; transform: rotate(4deg); overflow: hidden; }
+      .photo img { width: 100%; height: 100%; object-fit: cover; }
+      .body { padding: clamp(28px, 6vw, 56px); }
+      .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .fact { border: 2px solid #36234b; border-radius: 20px; padding: 20px; background: #fff; }
+      .fact:nth-child(2) { background: #fff0d7; }
+      .fact:nth-child(3) { background: #f3e8ff; }
+      .fact:nth-child(4) { background: #e3f5ec; }
+      .fact-label { margin: 0 0 10px; color: #644d78; font-size: 14px; font-weight: 700; }
+      .fact-value { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.4; }
+      .quote { margin: 28px 0; border-left: 6px solid #e796ae; padding: 10px 0 10px 20px; font-size: clamp(18px, 2.5vw, 23px); font-weight: 700; line-height: 1.6; }
+      .footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+      .back { border: 2px solid #36234b; border-radius: 14px; padding: 12px 20px; background: #ffe385; color: #271b38; font: inherit; font-weight: 800; cursor: pointer; box-shadow: 4px 4px 0 #36234b; }
+      .back:hover { background: #ffd45f; }
+      .back:focus-visible, a:focus-visible { outline: 3px solid #5530a9; outline-offset: 4px; }
+      .github { color: #513086; font-weight: 700; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .gimmick { margin: 28px 0; border: 2px dashed #8c62b6; border-radius: 20px; padding: 22px; background: #faf3ff; }
+      .gimmick h2 { margin: 0 0 8px; font-size: 21px; }
+      .gimmick p { margin: 0 0 16px; line-height: 1.6; }
+      .excuse-button { border: 2px solid #36234b; border-radius: 12px; padding: 10px 16px; background: #e7d5ff; color: #271b38; font: inherit; font-weight: 800; cursor: pointer; box-shadow: 4px 4px 0 #36234b; }
+      .excuse-button:hover { background: #d6bbfa; }
+      .excuse-button:focus-visible { outline: 3px solid #5530a9; outline-offset: 4px; }
+      .excuse-result { min-height: 2em; margin: 16px 0 0 !important; font-size: 19px; font-weight: 700; }
+      .excuse-result.pop { animation: pop .3s ease-out; }
+      @keyframes pop { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+      @media (prefers-reduced-motion: reduce) { .excuse-result.pop { animation: none; } }
+      @media (max-width: 640px) { .hero { grid-template-columns: 1fr; } .photo { width: 180px; grid-row: 1; } .facts { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <article class="card">
+        <header class="hero">
+          <div>
+            <p class="eyebrow">TEAM 05 · WEEK 11 · 📚 โหมดอ่านต่ออีกบท</p>
+            <h1>แก้วกัลญา<br />มารศรี</h1>
+            <p class="lead">สมาชิกทีม 05 ผู้พร้อมอ่านนิยายได้ทุกเวลา ส่วนคำว่า “บทสุดท้าย” เป็นเพียงตำนาน</p>
+          </div>
+          <div class="photo">
+            <img src="assets/kaewkanlaya.png" alt="รูปแก้วกัลญา มารศรี" />
+          </div>
+        </header>
+        <div class="body">
+          <section class="facts" aria-label="ข้อมูลส่วนตัว">
+            <div class="fact"><p class="fact-label">รหัสนิสิต</p><p class="fact-value">67160122</p></div>
+            <div class="fact"><p class="fact-label">ทีม</p><p class="fact-value">ทีม 05</p></div>
+            <div class="fact"><p class="fact-label">ความชอบ</p><p class="fact-value">นิยายเก 📖</p></div>
+            <div class="fact"><p class="fact-label">สิ่งที่ถนัด</p><p class="fact-value">อ่านนิยาย (ระดับมืออาชีพ)</p></div>
+          </section>
+          <section class="gimmick" aria-labelledby="gimmick-title">
+            <h2 id="gimmick-title">📖 เครื่องสุ่มข้ออ้างอ่านต่ออีกบท</h2>
+            <p>กดหนึ่งครั้ง แล้วปล่อยให้โชคชะตาตัดสินว่าจะวางหนังสือได้หรือยัง</p>
+            <button class="excuse-button" id="excuse-button" type="button">สุ่มข้ออ้าง ✨</button>
+            <p class="excuse-result" id="excuse-result" aria-live="polite">พร้อมแล้วก็กดเลย!</p>
+          </section>
+          <p class="quote">“สามารถอ่านนิยายเก 24 ชม. ได้จริง แต่แบตมือถืออาจไม่เห็นด้วย”</p>
+          <div class="footer">
+            <!-- TODO: เพื่อนร่วมทีมเชื่อมปุ่มนี้กลับไปหน้าทีมเมื่อหน้าทีมพร้อม -->
+            <button class="back" type="button">← Back</button>
+            <a class="github" href="https://github.com/KaewkanlayaMara">GitHub: @KaewkanlayaMara ↗</a>
+          </div>
+        </div>
+      </article>
+    </main>
+    <script>
+      const excuses = [
+        "อีกบทเดียวจริง ๆ ... ถ้าบทนี้ไม่จบแบบค้างคา",
+        "ตัวละครยังไม่ได้นอน เราจะนอนได้ยังไง?",
+        "อ่านต่อเพื่อการศึกษา: ศึกษาว่าตอนจบอยู่หน้าไหน",
+        "แบตเหลือ 5% แต่ใจเหลือ 100%",
+        "หยุดตอนนี้ไม่ได้ ความอยากรู้กำลังชนะ"
+      ];
+      const excuseButton = document.getElementById("excuse-button");
+      const excuseResult = document.getElementById("excuse-result");
+      let lastIndex = -1;
+
+      excuseButton.addEventListener("click", () => {
+        let nextIndex;
+        do {
+          nextIndex = Math.floor(Math.random() * excuses.length);
+        } while (nextIndex === lastIndex);
+        lastIndex = nextIndex;
+        excuseResult.classList.remove("pop");
+        void excuseResult.offsetWidth;
+        excuseResult.textContent = excuses[nextIndex];
+        excuseResult.classList.add("pop");
+      });
+    </script>
+  </body>
+</html>
