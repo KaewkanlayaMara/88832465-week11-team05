@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>67160145 | Thitapa Poonsanga</title>
+</head>
+<body>
+    <style>
+                :root {
+        --bg: #f2f0e6;
+        --ink: #23281f;
+        --muted: #6b7263;
+        --card: #ffffff;
+        --border: #e4e0d0;
+        --accent: #3f5d4c;
+        --accent-dark: #2b4235;
+        --accent-soft: #e6ece6;
+        --gold: #c1902f;
+        --gold-soft: #f7ecd4;
+        --radius-lg: 22px;
+        --radius-md: 14px;
+        --font-display: "Fraunces", "Noto Serif Thai", serif;
+        --font-body: "Inter", "Noto Sans Thai", sans-serif;
+        }
+
+        * {
+        box-sizing: border-box;
+        }
+
+        html, body {
+        margin: 0;
+        padding: 0;
+        }
+
+        body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 56px 24px 80px;
+        }
+
+        .page-header {
+        margin-bottom: 36px;
+        }
+
+        .kicker {
+        margin: 0 0 6px;
+        font-size: 14px;
+        color: var(--muted);
+        letter-spacing: 0.01em;
+        }
+
+        .page-header h1 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: 34px;
+        letter-spacing: -0.01em;
+        }
+
+        .layout {
+        display: grid;
+        grid-template-columns: 1.65fr 1fr;
+        gap: 22px;
+        align-items: start;
+        }
+
+        .col {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        }
+
+        .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 28px;
+        }
+
+        .card h3 {
+        margin: 0 0 18px;
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: 19px;
+        }
+
+        /* Profile card */
+
+        .card-profile {
+        padding: 0;
+        overflow: hidden;
+        }
+
+        .profile-top {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 32px 28px 26px;
+        background: linear-gradient(155deg, var(--accent) 0%, var(--accent-dark) 100%);
+        color: #fbf9f2;
+        }
+
+        .avatar {
+        flex: none;
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        background: var(--gold);
+        color: var(--accent-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: 26px;
+        font-weight: 500;
+        border: 3px solid rgba(251, 249, 242, 0.35);
+        }
+
+        .profile-id h2 {
+        margin: 0 0 4px;
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: 23px;
+        color: #fbf9f2;
+        }
+
+        .profile-id .role {
+        margin: 0;
+        font-size: 14px;
+        color: rgba(251, 249, 242, 0.8);
+        }
+
+        .edit-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 1px solid rgba(251, 249, 242, 0.45);
+        background: rgba(251, 249, 242, 0.12);
+        color: #fbf9f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.15s ease;
+        }
+
+        .edit-btn:hover {
+        background: rgba(251, 249, 242, 0.24);
+        }
+
+        .edit-btn:focus-visible,
+        .social-link:focus-visible,
+        .btn:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 2px;
+        }
+
+        .info-list {
+        margin: 0;
+        padding: 22px 28px 6px;
+        }
+
+        .info-row {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 8px;
+        padding: 9px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 14.5px;
+        }
+
+        .info-row:last-child {
+        border-bottom: none;
+        }
+
+        .info-row dt {
+        color: var(--muted);
+        }
+
+        .info-row dd {
+        margin: 0;
+        font-weight: 500;
+        }
+
+        .socials {
+        display: flex;
+        gap: 10px;
+        padding: 18px 28px 28px;
+        }
+
+        .social-link {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .social-link:hover {
+        background: var(--accent);
+        color: #fbf9f2;
+        }
+
+        /* Timeline card */
+
+        .timeline {
+        list-style: none;
+        margin: 0;
+        padding: 0 0 0 4px;
+        }
+
+        .timeline-item {
+        position: relative;
+        display: flex;
+        gap: 18px;
+        padding-bottom: 26px;
+        padding-left: 6px;
+        }
+
+        .timeline-item:last-child {
+        padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 18px;
+        bottom: -8px;
+        width: 1px;
+        background: var(--border);
+        }
+
+        .timeline-item:last-child::before {
+        display: none;
+        }
+
+        .dot {
+        flex: none;
+        width: 11px;
+        height: 11px;
+        margin-top: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 3px solid var(--accent-soft);
+        z-index: 1;
+        }
+
+        .timeline-head {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 6px;
+        }
+
+        .timeline-head h4 {
+        margin: 0;
+        font-size: 15.5px;
+        font-weight: 600;
+        }
+
+        .tag {
+        font-size: 12px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        color: var(--gold);
+        font-weight: 600;
+        }
+
+        .timeline-body p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        max-width: 46ch;
+        }
+
+        /* Skills card */
+
+        .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        }
+
+        .pill {
+        font-size: 13px;
+        padding: 6px 13px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+        font-weight: 500;
+        }
+
+        /* CTA card */
+
+        .card-cta {
+        background: var(--accent-dark);
+        color: #fbf9f2;
+        border: none;
+        }
+
+        .card-cta h3 {
+        color: #fbf9f2;
+        }
+
+        .card-cta p {
+        margin: 0 0 20px;
+        font-size: 14px;
+        color: rgba(251, 249, 242, 0.78);
+        }
+
+        .btn {
+        display: inline-block;
+        background: var(--gold);
+        color: var(--accent-dark);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 11px 20px;
+        border-radius: 999px;
+        transition: transform 0.15s ease, background 0.15s ease;
+        }
+
+        .btn:hover {
+        background: #4a76d6;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 760px) {
+        .layout {
+            grid-template-columns: 1fr;
+        }
+
+        .page {
+            padding: 36px 18px 60px;
+        }
+
+        .page-header h1 {
+            font-size: 27px;
+        }
+
+        .info-row {
+            grid-template-columns: 1fr;
+            gap: 2px;
+        }
+        }
+    </style>
+
+    <div class="page">
+
+  <header class="page-header">
+    <p class="kicker">ประวัติส่วนตัว</p>
+    <h1>โปรไฟล์ของฉัน</h1>
+  </header>
+
+  <main class="layout">
+
+    <div class="col col-main">
+
+      <section class="card card-profile">
+        <div class="profile-top">
+          <div class="avatar" aria-hidden="true">TP</div>
+          <div class="profile-id">
+            <h2>Thitapa Poonsanga</h2>
+            <p class="role">Front-End Developer</p>
+          </div>
+          <button class="edit-btn" type="button" aria-label="แก้ไขโปรไฟล์">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L18.5 9.5a2.8 2.8 0 0 0-4-4L4 16v4Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <dl class="info-list">
+          <div class="info-row">
+            <dt>สมัครสมาชิกเมื่อ</dt>
+            <dd>24 พฤศจิกายน 2565</dd>
+          </div>
+          <div class="info-row">
+            <dt>ที่อยู่</dt>
+            <dd>กรุงเทพมหานคร ประเทศไทย</dd>
+          </div>
+          <div class="info-row">
+            <dt>อีเมล</dt>
+            <dd>67160145@go.buu.ac.th</dd>
+          </div>
+          <div class="info-row">
+            <dt>เบอร์โทรศัพท์</dt>
+            <dd>+66 (0)8x-xxx-xxxx</dd>
+          </div>
+        </dl>
+
+        <div class="socials">
+          <a href="#" aria-label="GitHub" class="social-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.2c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.5v-1.76c-2.78.62-3.37-1.37-3.37-1.37-.46-1.2-1.11-1.52-1.11-1.52-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.36 1.11 2.93.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.33 2.74-1.05 2.74-1.05.56 1.4.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.95.68 1.92v2.85c0 .28.18.61.69.5A10.02 10.02 0 0 0 22 12.2C22 6.58 17.52 2 12 2Z" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn" class="social-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6.94 8.5H4v11.5h2.94V8.5ZM5.47 3.5A1.72 1.72 0 1 0 5.5 6.94a1.72 1.72 0 0 0-.03-3.44ZM20 20h-2.94v-6.02c0-1.44-.03-3.28-2-3.28-2.01 0-2.32 1.57-2.32 3.18V20H9.8V8.5h2.82v1.57h.04c.39-.74 1.35-1.53 2.79-1.53 2.98 0 3.55 1.97 3.55 4.53V20Z" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="Behance" class="social-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14.5 8.2h5.6V6.7h-5.6v1.5ZM4 6.8v10.4h4.9c2.33 0 3.91-1.03 3.91-3.02 0-1.36-.7-2.16-1.86-2.5.87-.37 1.4-1.08 1.4-2.17 0-1.86-1.48-2.75-3.63-2.75H4Zm2.6 2.07h2.02c.9 0 1.44.35 1.44 1.1 0 .78-.55 1.16-1.46 1.16H6.6V8.87Zm0 4.17h2.24c1.03 0 1.63.42 1.63 1.28 0 .87-.6 1.31-1.63 1.31H6.6v-2.59ZM19.9 13.7c0-2.55-1.47-4.24-3.98-4.24-2.43 0-4.13 1.77-4.13 4.24 0 2.5 1.63 4.22 4.19 4.22 1.83 0 3.16-.78 3.75-2.24h-2.1c-.29.51-.77.79-1.6.79-1.13 0-1.78-.64-1.9-1.77h5.72c.03-.28.05-.65.05-.99Zm-5.74-.86c.17-.98.76-1.55 1.72-1.55.98 0 1.53.62 1.62 1.55h-3.34Z" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </section>
+
+      <section class="card card-timeline">
+        <h3>ประสบการณ์ทำงาน</h3>
+        <ol class="timeline">
+          <li class="timeline-item">
+            <span class="dot" aria-hidden="true"></span>
+            <div class="timeline-body">
+              <div class="timeline-head">
+                <h4>Front-End Developer — Thiangtrong</h4>
+                <span class="tag tag-current">ปัจจุบัน</span>
+              </div>
+              <p>ร่วมพัฒนาและดูแลหน้าเว็บกับทีมออกแบบและพัฒนารวม 12 คน ดูแลตั้งแต่การแบ่งหน้าเว็บ (layout), การเชื่อมต่อ API ไปจนถึงการปรับปรุงประสิทธิภาพหน้าเว็บ</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="dot" aria-hidden="true"></span>
+            <div class="timeline-body">
+              <div class="timeline-head">
+                <h4>Front-End Developer — Lazadee</h4>
+              </div>
+              <p>พัฒนา UI สำหรับระบบอีคอมเมิร์ซร่วมกับทีมงาน 10 คน ทำงานร่วมกับทีมออกแบบเพื่อแปลง Design เป็นหน้าเว็บที่ใช้งานได้จริง</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+    </div>
+
+    <div class="col col-side">
+
+      <section class="card card-skills">
+        <h3>ทักษะและเครื่องมือ</h3>
+        <div class="pills">
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">Figma</span>
+          <span class="pill">Git</span>
+        </div>
+      </section>
+
+      <section class="card card-cta">
+        <h3>สนใจร่วมงานด้วยกัน?</h3>
+        <p>เปิดรับโปรเจกต์และโอกาสใหม่ ๆ ในสายงาน Front-End Development ทักมาพูดคุยกันได้เลย</p>
+        <a class="btn" href="mailto:thitapa.poonsanga@example.com">ติดต่อฉัน</a>
+      </section>
+
+    </div>
+
+  </main>
+
+</div>
+    
+</body>
+</html>
